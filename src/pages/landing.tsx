@@ -2,8 +2,10 @@ import { Button } from "../components/button"
 import { StyledText, StyledTittle } from "../components/texts"
 import { useObserver } from "../common/observer"
 import styled from "styled-components"
+import { useDispatch } from "react-redux";
+import { enableModal } from "../common/modalSlice";
 
-const TextContainer = styled.div<{visible: Boolean}>`
+const TextContainer = styled.div<{$visible: boolean}>`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +14,7 @@ const TextContainer = styled.div<{visible: Boolean}>`
     
     transition: all 2s ease;
     & {
-        transform: ${({visible}) => visible ? 'translateY(0)' : 'translateY(-5rem)'}
+        transform: ${({$visible}) => $visible ? 'translateY(0)' : 'translateY(-5rem)'}
     }
 `;
 
@@ -32,23 +34,25 @@ const BackgroundImage = styled.div`
     );
 `;
 
-const PageContainer = styled.div<{visible: Boolean}>`
+const PageContainer = styled.div<{$visible: Boolean}>`
     & {
-        opacity: ${({ visible }) => (visible ? 1 : 0)};
+        opacity: ${({ $visible }) => ($visible ? 1 : 0)};
         transition: all 1.5s ease;
     }
 `;
 
 export const Landing = () => {
-
+    const dispatch = useDispatch();
     const {ref, visible} = useObserver();
     return (
-        <PageContainer ref={ref} visible={visible}>
+        <PageContainer ref={ref} $visible={visible}>
             <BackgroundImage/>
-            <TextContainer visible={visible}>
+            <TextContainer $visible={visible}>
                 <StyledTittle>PnL Calendar</StyledTittle>
                 <StyledText>From traders to traders</StyledText>
-                <Button>Start now</Button>
+                <Button onClick={()=>{
+                    dispatch(enableModal({name: 'accountCreation'}))
+                }}>Start now</Button>
             </TextContainer>
         </PageContainer>
     )

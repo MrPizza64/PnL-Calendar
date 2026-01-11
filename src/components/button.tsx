@@ -7,24 +7,30 @@ type Variants = 'primary' | 'secondary' | "tertiary";
 interface ButtonProps {
     variant?: Variants,
     children: React.ReactNode,
-    onClick: ()=> void
+    onClick?: ()=> void
 }
 
-const variantBackgroundcolors = {
-    primary: colors_palette.yellow,
-    secondary: colors_palette.skyblue,
-    tertiary: 'transparent',
-}
-
-const transitionColors = {
-    primary: colors_palette.dark_yellow,
-    secondary: colors_palette.light_skyblue,
-    tertiary: 'transparent'
+const VariantColors = {
+    variantBackgroundcolors: {
+        primary: colors_palette.yellow,
+        secondary: colors_palette.skyblue,
+        tertiary: 'transparent',
+    },
+    transitionBackgroundColors: {
+        primary: colors_palette.dark_yellow,
+        secondary: colors_palette.light_skyblue,
+        tertiary: 'transparent'
+    },
+    transitionColors: {
+        primary: 'black',
+        secondary: 'black',
+        tertiary: 'grey',
+    }
 }
 
 const ButtonContainer = styled.button<{variant: Variants}>`
     border: 0;
-    background-color: ${({variant}) => variantBackgroundcolors[variant]};
+    background-color: ${({variant}) => VariantColors.variantBackgroundcolors[variant]};
     font-size: 1.5rem;
     font-weight: 700;
     padding: 1rem 2rem;
@@ -34,12 +40,15 @@ const ButtonContainer = styled.button<{variant: Variants}>`
     ${({variant}) => variant == 'primary' && `
         border-radius: 50px 0px 50px 0px;
     `}
-
+    ${({variant}) => variant == 'tertiary' &&`
+        color: white;
+    `}
     transition: all 0.3s ease;
 
     &:hover{
-        background-color: ${({variant}) => transitionColors[variant]}
-    }
+        background-color: ${({variant}) => VariantColors.transitionBackgroundColors[variant]};
+        color: ${({variant}) => VariantColors.transitionColors[variant]};
+    };
 `
 
 export const Button = ({
