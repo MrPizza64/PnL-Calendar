@@ -1,53 +1,83 @@
 import { BaseModal } from "./base";
 import { TextInput } from "../textInput";
 import { Button } from "../button";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../common/store";
 import { createAccount } from "../../common/accountSlice";
 import { disableModal } from "../../common/modalSlice";
 
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+    name: z.string(),
+    balance: z.number(),
+})
+
+type FormData = z.infer<typeof schema>;
+
 export const CreateAccountModal = () => {
-    const [name, setName] = useState('');
-    const [balance, setBalance] = useState(0);
     const { accountCreation } = useSelector(
         (state: RootState) => state.modals
     )
 
     const dispatch = useDispatch();
 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            name: "",
+            balance: 0,
+        },
+    });
+
+    const onSubmit = (data: FormData) => {
+        dispatch(createAccount(data));
+        reset();
+        dispatch(disableModal({ name: "accountCreation" }));
+    };
+
     if (accountCreation == true) {
         return (
-                <BaseModal title="Account Creation">
+            <BaseModal title="Account Creation">
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <TextInput
                         type="text"
                         placeholder="Name"
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            setName(value);
-                        }}
+                        {...register("name")}
                     />
+                    {errors.name && <p>{errors.name.message}</p>}
+
                     <TextInput
                         type="number"
                         placeholder="Balance"
-                        onChange={(e) => {
-                            const value = e.target.value;
-                            if (/^\d*$/.test(value)) {
-                                setBalance(value === "" ? 0 : parseInt(value, 10));
-                            }
-                        }}
+                        {...register("balance", { valueAsNumber: true })}
                     />
-                    <div>
-                        <Button variant="tertiary" onClick={() => {
-                            dispatch(disableModal({ name: 'accountCreation' }))
-                        }}>Cancel</Button>
+                    {errors.balance && <p>{errors.balance.message}</p>}
 
-                        <Button variant="secondary" onClick={() => {
-                            dispatch(createAccount({ name, balance }))
-                        }}>Create</Button>
+                    <div>
+                        <Button
+                            variant="tertiary"
+                            onClick={() => {
+                                reset();
+                                dispatch(disableModal({ name: "accountCreation" }));
+                            }}
+                        >
+                            Cancel
+                        </Button>
+
+                        <Button variant="secondary" type="submit">
+                            Create
+                        </Button>
                     </div>
-                </BaseModal>
+                </form>
+            </BaseModal>
         )
     } else {
         return null;

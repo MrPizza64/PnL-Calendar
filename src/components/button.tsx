@@ -7,7 +7,8 @@ type Variants = 'primary' | 'secondary' | "tertiary";
 interface ButtonProps {
     variant?: Variants,
     children: React.ReactNode,
-    onClick?: ()=> void
+    onClick?: ()=> void,
+    type?: "button" | "submit" | "reset"
 }
 
 const VariantColors = {
