@@ -1,6 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import accountReducer from './accountSlice.ts'
-import modalReducer from './modalSlice.ts'
+import accountReducer from './accountSlice.ts';
+import modalReducer from './modalSlice.ts';
+import pnlReducer from './PnlSlice.ts';
+import dayDateReducer from './dayDateSlice.ts';
+
 import { 
     persistStore, 
     persistReducer,
@@ -17,12 +20,14 @@ import storage from "redux-persist/lib/storage";
 const rootReducer = combineReducers({
     accounts: accountReducer,
     modals: modalReducer,
+    pnl: pnlReducer,
+    daydate: dayDateReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["accounts", "modals"], 
+  whitelist: ["accounts", "modals", "pnl"], 
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

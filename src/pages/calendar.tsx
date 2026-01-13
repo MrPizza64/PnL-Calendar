@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import { StyledText } from "../components/texts"
 import { CalendarComponent } from "../components/calendarComponent"
 
 const PageContainer = styled.div`
