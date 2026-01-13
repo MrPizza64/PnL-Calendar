@@ -19,15 +19,17 @@ function App() {
 
   return (
     <>
-      <NavBar/>
       <ModalsCompiler />
-      {accounts.currentAccount && (
+      {accounts.currentAccount.name !== '' && (
+        <>
+        <NavBar/>
         <AppContainer>
           <Calendar/>
         </AppContainer>
+        </>
       )}
 
-      {!accounts.currentAccount && <Landing />}    
+      {accounts.currentAccount.name == '' && <Landing />}    
     </>
   )
 }

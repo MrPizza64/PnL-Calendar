@@ -51,7 +51,7 @@ export const Landing = () => {
                 <StyledTittle>PnL Calendar</StyledTittle>
                 <StyledText>From traders to traders</StyledText>
                 <Button onClick={()=>{
-                    dispatch(enableModal({name: 'accountCreation'}))
+                    dispatch(enableModal({name: 'accountCreation'}));
                 }}>Start now</Button>
             </TextContainer>
         </PageContainer>

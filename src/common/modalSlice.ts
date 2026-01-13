@@ -16,7 +16,7 @@ const modalSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
-    enableModal: (state, action: PayloadAction<{ name: keyof StateInterface }>) => {
+    enableModal: (state, action: PayloadAction<{ name: keyof StateInterface}>) => {
       const modalName = action.payload.name;
       state[modalName] = true;
     },
