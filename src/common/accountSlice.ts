@@ -24,18 +24,22 @@ const accountSlice = createSlice({
     reducers: {
         createAccount: (state, p: PayloadAction<accountInterface>) => {
             state.currentAccount.name = p.payload.name,
-            state.currentAccount.balance = p.payload.balance
+                state.currentAccount.balance = p.payload.balance
         },
-        changeAccount: (state, p: PayloadAction<{name: string}>) => {
+        changeAccount: (state, p: PayloadAction<{ name: string }>) => {
             const accountFound = state.AllAccounts.find(
                 acc => acc.name === p.payload.name
             )
-            if (accountFound){
+            if (accountFound) {
                 state.currentAccount = accountFound
             }
+        },
+        updateBalance: (state, p: PayloadAction<{ amount: number }>) => {
+
+            state.currentAccount.balance += p.payload.amount;
         }
     }
 })
 
 export default accountSlice.reducer;
-export const {createAccount, changeAccount} = accountSlice.actions;
+export const { createAccount, changeAccount, updateBalance } = accountSlice.actions;

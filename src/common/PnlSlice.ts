@@ -4,6 +4,8 @@ interface PnL {
     date: string,
     pnl_roi: 'PnL' | 'RoI',
     amount: number,
+    account: string,
+    balance_to_date?: number,
 }
 
 interface stateInterf {
@@ -23,12 +25,19 @@ const PnLSlice = createSlice({
         },
         updatePnl: (state, action: PayloadAction<PnL>) => {
             const index = state.List_Pnls.findIndex(
-                pnl => pnl.date === action.payload.date
+                pnl => pnl.date === action.payload.date &&
+                pnl.account === action.payload.account
             );
 
+            const balance_to_date = state.List_Pnls[index].balance_to_date;
+
             if (index !== -1) {
-                state.List_Pnls[index] = action.payload;
-            }
+                state.List_Pnls[index] = {
+                    ...action.payload, 
+                    balance_to_date: balance_to_date,
+                };
+            };
+
         }
     },
 });

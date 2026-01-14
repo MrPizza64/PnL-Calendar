@@ -4,12 +4,14 @@ interface StateInterface {
   accountCreation: boolean;
   accountChange: boolean;
   setPnL: boolean;
+  updatePnl: boolean;
 }
 
 const initialState: StateInterface = {
   accountCreation: false,
   accountChange: false,
   setPnL: false,
+  updatePnl: false,
 };
 
 const modalSlice = createSlice({

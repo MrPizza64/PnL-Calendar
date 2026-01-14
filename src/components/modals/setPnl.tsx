@@ -11,6 +11,7 @@ import { disableModal } from "../../common/modalSlice";
 import { SelectInput } from "../selectInput";
 import styled from "styled-components";
 import { createPnl } from "../../common/PnlSlice";
+import { updateBalance } from "../../common/accountSlice";
 
 const StyledForm = styled.form`
     display: flex;
@@ -30,7 +31,7 @@ export const SetPnL = () => {
   const PnL = useSelector((state: RootState) => state.modals.setPnL);
   const dispatch = useDispatch();
   const dateISO = useSelector((state: RootState) => state.daydate.date_d);
-
+  const acc = useSelector((state: RootState) => state.accounts.currentAccount)
   const {
     handleSubmit,
     formState: { errors },
@@ -45,12 +46,15 @@ export const SetPnL = () => {
   });
 
   const onSubmit = (data: FormData) => {
-    dispatch(disableModal({ name: 'setPnL' }));
 
+    dispatch(disableModal({ name: 'setPnL' }));
     dispatch(createPnl({
       ...data,
       date: dateISO ?? new Date().toISOString(),
+      account: acc.name,
+      balance_to_date: acc.balance
     }));
+    dispatch(updateBalance({ amount: data.amount }))
 
     reset();
   };
@@ -63,7 +67,7 @@ export const SetPnL = () => {
         <StyledText>Select PnL (USD$) or ROI (%) Option</StyledText>
 
         <SelectInput {...register("pnl_roi")}>
-          <option value="" disabled>Seleccionar...</option>
+          <option value="" disabled>Select...</option>
           <option value="PnL">PnL</option>
           <option value="RoI">RoI</option>
         </SelectInput>

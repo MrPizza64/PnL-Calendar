@@ -22,7 +22,7 @@ export const NavBar = () => {
         return (
             <StyledNavbar>
                 <Wallet/>   
-                <Button variant="tertiary">Account_Name</Button>
+                <Button variant="tertiary">{accounts.currentAccount.name}</Button>
             </StyledNavbar>
         )
     }
