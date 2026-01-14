@@ -3,5 +3,4 @@
 - npm install
 - npm run dev
 
-" APP Finished "
-" Time: 4 Days "
+APP FINISHED
