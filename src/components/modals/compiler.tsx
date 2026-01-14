@@ -1,3 +1,4 @@
+import { ChangeAccount } from "./changeAccount";
 import { CreateAccountModal } from "./createAccount";
 import { SetPnL } from "./setPnl";
 import { UpdatePnl } from "./updatePnl";
@@ -9,6 +10,7 @@ const ModalsCompiler = () => {
           <CreateAccountModal/>  
           <SetPnL/>
           <UpdatePnl/>
+          <ChangeAccount/>
         </>
     )
 }

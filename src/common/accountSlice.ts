@@ -24,7 +24,9 @@ const accountSlice = createSlice({
     reducers: {
         createAccount: (state, p: PayloadAction<accountInterface>) => {
             state.currentAccount.name = p.payload.name,
-                state.currentAccount.balance = p.payload.balance
+            state.currentAccount.balance = p.payload.balance
+
+            state.AllAccounts.push(p.payload)
         },
         changeAccount: (state, p: PayloadAction<{ name: string }>) => {
             const accountFound = state.AllAccounts.find(

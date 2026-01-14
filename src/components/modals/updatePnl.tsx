@@ -58,8 +58,6 @@ export const UpdatePnl = () => {
     if (!modal) return null;
 
     const onSubmit = (data: FormData) => {
-        const oldAmount = pnlThatDay?.amount ?? 0;
-
         const diff = data.amount - (pnlThatDay?.amount ?? 0);
         dispatch(disableModal({ name: 'updatePnl' }));
         dispatch(updatePnl({
