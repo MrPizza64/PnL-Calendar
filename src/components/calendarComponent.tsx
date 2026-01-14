@@ -54,6 +54,11 @@ export const CalendarComponent = () => {
     const pnlList = useSelector(
         (state: RootState) => state.pnl.List_Pnls
     );
+
+    const currentAccount = useSelector(
+        (state: RootState) => state.accounts.currentAccount.name
+    );
+
     const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
         today.startOf('month')
     );
@@ -74,7 +79,10 @@ export const CalendarComponent = () => {
                     const isToday = day.hasSame(today, 'day');
                     const PnL = pnlList.find(pnl => {
                         const pnlDate = DateTime.fromISO(pnl.date).toISODate();
-                        return pnlDate === day.toISODate();
+                        const sameDay = pnlDate === day.toISODate();
+                        const sameAccount = pnl.account === currentAccount;
+
+                        return sameDay && sameAccount;
                     });
 
                     let pnl_roi: 'positive' | 'negative' | 'none' = 'none'
@@ -94,7 +102,11 @@ export const CalendarComponent = () => {
                             pnl_roi={pnl_roi}
                             onClick={() => {
                                 dispatch(setDate(`${day.toISODate()}`))
-                                dispatch(enableModal({ name: 'setPnL' }));
+                                if (pnl_roi !== 'none') {
+                                    dispatch(enableModal({ name: 'updatePnl' }))
+                                } else {
+                                    dispatch(enableModal({ name: 'setPnL' }));
+                                }
                             }}>
                             {pnl_roi !== 'none' ? (
                                 <>

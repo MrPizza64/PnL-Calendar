@@ -55,11 +55,12 @@ const ButtonContainer = styled.button<{variant: Variants}>`
 export const Button = ({
     variant = 'primary',
     children,
-    onClick
+    onClick,
+    type='button'
     } : ButtonProps) => {
 
     return (
-        <ButtonContainer variant={variant} onClick={onClick}>
+        <ButtonContainer variant={variant} onClick={onClick} type={type}>
             {children}
         </ButtonContainer>
     )

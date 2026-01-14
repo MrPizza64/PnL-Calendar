@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import type { RootState } from "../common/store"
 import styled from "styled-components"
 import { Button } from "./button"
 import { Wallet } from "./Wallet"
+import { enableModal } from "../common/modalSlice"
 
 const StyledNavbar = styled.div`
     background-color: #0A0D12;
@@ -18,11 +19,14 @@ const StyledNavbar = styled.div`
 
 export const NavBar = () => {
     const accounts = useSelector((state:RootState) => state.accounts)
+    const dispatch = useDispatch();
     if (accounts.currentAccount){
         return (
             <StyledNavbar>
                 <Wallet/>   
-                <Button variant="tertiary">Account_Name</Button>
+                <Button variant="tertiary" onClick={()=>{
+                    dispatch(enableModal({name: 'accountChange'}))
+                }}>{accounts.currentAccount.name}</Button>
             </StyledNavbar>
         )
     }

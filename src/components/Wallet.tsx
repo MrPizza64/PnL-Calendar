@@ -45,7 +45,7 @@ export const Wallet = () => {
         <WalletContainer>
             {images[currentImg] === '/EyeOpen.png' ? 
             <StyledText>{`${balance} USD$`}</StyledText>
-            : <StyledText>$$$   </StyledText>
+            : <StyledText>$$$</StyledText>
             }
             <Eye
                 src={images[currentImg]}
