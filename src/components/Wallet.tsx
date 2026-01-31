@@ -11,6 +11,7 @@ const WalletContainer = styled.div`
     justify-content: center;
     align-items: center;
     padding: 0.25rem 1rem;  
+    width: 15rem;
     gap: 0.5rem;
     margin: 1rem;
     background-color: ${colors_palette.light};

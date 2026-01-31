@@ -37,16 +37,20 @@ export const ChangeAccount = () => {
         resolver: zodResolver(schema),
     });
 
-    if (!modal)return null;
+    if (!modal) return null;
 
     const onSubmit = (data: FormData) => {
-        dispatch(disableModal({name: 'accountChange'}));
-        dispatch(changeAccount({name: data.account}))
+        dispatch(disableModal({ name: 'accountChange' }));
+        dispatch(changeAccount({ name: data.account }))
     };
 
     return (
         <BaseModal title="Change Account">
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
+                <Button variant='tertiary' onClick={() => {
+                    dispatch(disableModal({ name: 'accountChange' }))
+                    dispatch(enableModal({ name: 'accountCreation' }))
+                }}>Want another account? Create One Clicking on this text.</Button>
                 <SelectInput
                     {...register('account')}
                 >
@@ -56,16 +60,12 @@ export const ChangeAccount = () => {
                         )
                     })}
                 </SelectInput>
-                
+
                 {errors.account && <StyledText>{errors.account.message}</StyledText>}
 
-                <StyledText style={{cursor: 'pointer'}} onClick={()=>{
-                    dispatch(disableModal({name: 'accountChange'}))
-                    dispatch(enableModal({name: 'accountCreation'}))
-                }}>Click here for create another account.</StyledText>
                 <div>
-                    <Button variant="tertiary" onClick={()=>{
-                        dispatch(disableModal({name: 'accountChange'}))
+                    <Button variant="tertiary" onClick={() => {
+                        dispatch(disableModal({ name: 'accountChange' }))
                     }}>Cancel</Button>
                     <Button type="submit" variant="secondary">Change</Button>
                 </div>

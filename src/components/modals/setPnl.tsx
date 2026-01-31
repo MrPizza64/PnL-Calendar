@@ -46,7 +46,17 @@ export const SetPnL = () => {
   });
 
   const onSubmit = (data: FormData) => {
-
+    if (data.amount < 0) {
+      if ((acc.balance + data.amount) < 0) {
+        console.log('WHW')
+        alert('You cant set a PnL Lower then your Total Balance.')
+        return;
+      }
+    }
+    if (acc.balance == 0){
+      alert('You burned the Account!')
+      return;
+    }
     dispatch(disableModal({ name: 'setPnL' }));
     dispatch(createPnl({
       ...data,

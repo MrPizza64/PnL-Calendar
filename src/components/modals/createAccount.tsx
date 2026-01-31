@@ -10,13 +10,22 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { StyledText } from "../texts";
+import styled from "styled-components";
 
 const schema = z.object({
-    name: z.string(),
-    balance: z.number(),
+    name: z.string().min(4, 'Your name needs to have more then 4 characters'),
+    balance: z.number('The account balance is required'),
 })
 
 type FormData = z.infer<typeof schema>;
+
+const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+`
 
 export const CreateAccountModal = () => {
     const { accountCreation } = useSelector(
@@ -39,6 +48,10 @@ export const CreateAccountModal = () => {
     });
 
     const onSubmit = (data: FormData) => {
+        if (data.balance < 1){
+            alert('Your balance have to be more then 0')
+            return;
+        }
         dispatch(createAccount(data));
         reset();
         dispatch(disableModal({ name: "accountCreation" }));
@@ -47,7 +60,7 @@ export const CreateAccountModal = () => {
     if (accountCreation == true) {
         return (
             <BaseModal title="Account Creation">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <StyledForm onSubmit={handleSubmit(onSubmit)}>
                     <TextInput
                         type="text"
                         placeholder="Name"
@@ -77,7 +90,7 @@ export const CreateAccountModal = () => {
                             Create
                         </Button>
                     </div>
-                </form>
+                </StyledForm>
             </BaseModal>
         )
     } else {
