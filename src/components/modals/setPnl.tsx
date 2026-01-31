@@ -48,7 +48,6 @@ export const SetPnL = () => {
   const onSubmit = (data: FormData) => {
     if (data.amount < 0) {
       if ((acc.balance + data.amount) < 0) {
-        console.log('WHW')
         alert('You cant set a PnL Lower then your Total Balance.')
         return;
       }
