@@ -59,7 +59,7 @@ export const CalendarComponent = () => {
         (state: RootState) => state.accounts.currentAccount.name
     );
 
-    const [firstDayOfActiveMonth, setFirstDayOfActiveMonth] = useState(
+    const [firstDayOfActiveMonth, _setFirstDayOfActiveMonth] = useState(
         today.startOf('month')
     );
 
