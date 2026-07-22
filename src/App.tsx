@@ -8,8 +8,8 @@ import type { RootState } from './common/store'
 import { NavBar } from './components/navbar'
 
 const AppContainer = styled.div`
-  margin-left: 20rem;
-  margin-right: 20rem;
+  margin-left: 30rem;
+  margin-right: 30rem;
 `
 
 function App() {

@@ -10,7 +10,7 @@ import type { RootState } from "../../common/store";
 import { disableModal } from "../../common/modalSlice";
 import { updatePnl } from "../../common/PnlSlice";
 import { SelectInput } from "../selectInput";
-import { StyledText } from "../texts";
+import { ErrorText,  } from "../texts";
 import { updateBalance } from "../../common/accountSlice";
 
 const StyledForm = styled.form`
@@ -77,14 +77,14 @@ export const UpdatePnl = () => {
                     <option value='RoI'>RoI</option>
                 </SelectInput>
 
-                {errors.pnl_roi && <StyledText>{errors.pnl_roi.message}</StyledText>}
+                {errors.pnl_roi && <ErrorText>{errors.pnl_roi.message}</ErrorText>}
 
                 <TextInput
                     placeholder="Amount"
                     type="number"
                     {...register('amount', { valueAsNumber: true })}
                 />
-                {errors.amount && <StyledText>{errors.amount.message}</StyledText>}
+                {errors.amount && <ErrorText>{errors.amount.message}</ErrorText>}
 
                 <div>
                     <Button variant="tertiary" type='button' onClick={() => {

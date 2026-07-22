@@ -13,12 +13,12 @@ interface ButtonProps {
 
 const VariantColors = {
     variantBackgroundcolors: {
-        primary: colors_palette.yellow,
+        primary: colors_palette.green,
         secondary: colors_palette.skyblue,
         tertiary: 'transparent',
     },
     transitionBackgroundColors: {
-        primary: colors_palette.dark_yellow,
+        primary: colors_palette.light_green,
         secondary: colors_palette.light_skyblue,
         tertiary: 'transparent'
     },
@@ -32,15 +32,13 @@ const VariantColors = {
 const ButtonContainer = styled.button<{variant: Variants}>`
     border: 0;
     background-color: ${({variant}) => VariantColors.variantBackgroundcolors[variant]};
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
     margin: 1rem;
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     cursor: pointer;
-    ${({variant}) => variant == 'primary' && `
-        border-radius: 50px 0px 50px 0px;
-    `}
+
     ${({variant}) => variant == 'tertiary' &&`
         color: white;
     `}

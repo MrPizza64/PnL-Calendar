@@ -4,25 +4,20 @@ import { StyledTittle } from "../texts";
 import type React from "react";
 import { useObserver } from "../../common/observer";
 
-const StyledModal = styled.div<{ $visible: boolean }>`
+const StyledModal = styled.div`
     background-color: ${colors_palette.dark};
     border-radius: 1rem;
-    border: 0.2rem solid ${colors_palette.light};
-    padding: 1rem 4rem 1rem 4rem;
-    width: 30%;
-    max-width: 30%;
+    border: 0.15rem solid ${colors_palette.light};
+    padding: 1rem 4rem;
+    width: 25%;
+    max-width: 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-    transition: all 0.4s ease;
-    & {
-        opacity: ${({ $visible }) => ($visible ? 1 : 0)};
-    }
 `
 
-const BlurBackground = styled.div`
+const BlurBackground = styled.div<{ $visible: boolean }>`
     backdrop-filter: blur(3px);
     width: 100%;
     height: 100%;
@@ -32,6 +27,12 @@ const BlurBackground = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    
+    transition: opacity 0.5s ease;
+    & {
+        opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+    }
 `
 
 interface BaseModalProps {
@@ -47,8 +48,8 @@ export const BaseModal = (
     const { ref, visible } = useObserver();
 
     return (
-        <BlurBackground>
-            <StyledModal ref={ref} $visible={visible}>
+        <BlurBackground ref={ref} $visible={visible}>
+            <StyledModal>
                 <StyledTittle>{title}</StyledTittle>
                 {children}
             </StyledModal>

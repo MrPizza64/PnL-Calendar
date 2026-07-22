@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from 'zod';
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../common/store";
-import { StyledText } from "../texts";
+import { ErrorText, StyledText } from "../texts";
 import { Button } from "../button";
 import { disableModal } from "../../common/modalSlice";
 import { SelectInput } from "../selectInput";
@@ -81,7 +81,7 @@ export const SetPnL = () => {
           <option value="RoI">RoI</option>
         </SelectInput>
 
-        {errors.pnl_roi && <StyledText>{errors.pnl_roi.message}</StyledText>}
+        {errors.pnl_roi && <ErrorText>{errors.pnl_roi.message}</ErrorText>}
 
         <StyledText>Write with '-' if its negative PnL/RoI</StyledText>
 
@@ -91,7 +91,7 @@ export const SetPnL = () => {
           {...register("amount", { valueAsNumber: true })}
         />
 
-        {errors.amount && <StyledText>{errors.amount.message}</StyledText>}
+        {errors.amount && <ErrorText>{errors.amount.message}</ErrorText>}
 
         <div>
           <Button

@@ -9,7 +9,7 @@ import { disableModal } from "../../common/modalSlice";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { StyledText } from "../texts";
+import { ErrorText,  } from "../texts";
 import styled from "styled-components";
 
 const schema = z.object({
@@ -66,14 +66,14 @@ export const CreateAccountModal = () => {
                         placeholder="Name"
                         {...register("name")}
                     />
-                    {errors.name && <StyledText>{errors.name.message}</StyledText>}
+                    {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
 
                     <TextInput
                         type="number"
                         placeholder="Balance"
                         {...register("balance", { valueAsNumber: true })}
                     />
-                    {errors.balance && <StyledText>{errors.balance.message}</StyledText>}
+                    {errors.balance && <ErrorText>{errors.balance.message}</ErrorText>}
 
                     <div>
                         <Button
