@@ -6,11 +6,9 @@ import { Wallet } from "./Wallet"
 import { enableModal } from "../common/modalSlice"
 
 const StyledNavbar = styled.div`
-    background-color: #0A0D12;
     width: 100%;
-    position: fixed;
     display: flex;
-    padding: 0.5rem;
+    padding: 0.25rem 5%;
     box-sizing: border-box;
     align-content: center;
     justify-content: end;

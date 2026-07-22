@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { BaseModal } from "./base"
 import { SelectInput } from "../selectInput"
-import { StyledText } from "../texts"
+import { ErrorText } from "../texts"
 import type { RootState } from "../../common/store"
 import { useDispatch, useSelector } from "react-redux"
 import { Button } from "../button"
@@ -22,11 +22,12 @@ const StyledForm = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    text-align: center;
 `
 export const ChangeAccount = () => {
     const modal = useSelector((state: RootState) => state.modals.accountChange);
     const allAcc = useSelector((state: RootState) => state.accounts.AllAccounts);
+    const currentAcc = useSelector((state: RootState) => state.accounts.currentAccount);
     const dispatch = useDispatch();
 
     const {
@@ -40,6 +41,9 @@ export const ChangeAccount = () => {
     if (!modal) return null;
 
     const onSubmit = (data: FormData) => {
+        if(data.account == currentAcc.name){
+            
+        }
         dispatch(disableModal({ name: 'accountChange' }));
         dispatch(changeAccount({ name: data.account }))
     };
@@ -50,7 +54,7 @@ export const ChangeAccount = () => {
                 <Button variant='tertiary' onClick={() => {
                     dispatch(disableModal({ name: 'accountChange' }))
                     dispatch(enableModal({ name: 'accountCreation' }))
-                }}>Want another account? Create One Clicking on this text.</Button>
+                }}>Click to create Another Account</Button>
                 <SelectInput
                     {...register('account')}
                 >
@@ -61,7 +65,7 @@ export const ChangeAccount = () => {
                     })}
                 </SelectInput>
 
-                {errors.account && <StyledText>{errors.account.message}</StyledText>}
+                {errors.account && <ErrorText>{errors.account.message}</ErrorText>}
 
                 <div>
                     <Button variant="tertiary" onClick={() => {

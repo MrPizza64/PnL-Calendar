@@ -10,8 +10,8 @@ const WalletContainer = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0.25rem 1rem;  
-    width: 15rem;
+    height: 2rem;
+    padding: 0.25rem 0.75rem;
     gap: 0.5rem;
     margin: 1rem;
     background-color: ${colors_palette.light};

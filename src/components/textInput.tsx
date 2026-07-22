@@ -5,7 +5,7 @@ export const TextInput = styled.input`
     background-color: ${colors_palette.light};
     border: 0;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     box-sizing: border-box;
     border-radius: 0.75rem;
     margin-top: 0.5rem;

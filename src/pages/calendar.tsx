@@ -8,9 +8,8 @@ const PageContainer = styled.div<{ $visible: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     transition: all 1s ease;
-
+    margin-top: 2.5rem;
     & {
          opacity: ${({ $visible }) => ($visible ? 1 : 0)};
     }
